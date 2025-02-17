@@ -17,6 +17,11 @@ pyrosim.Prepare_To_Simulate(robotId)
 backLegSensorValues = np.zeros(1000)
 frontLegSensorValues = np.zeros(1000)
 
+backLegAngles = np.sin(np.linspace(0., 2*np.pi, 1000)* np.pi / 180.)
+frontLegAngles = np.sin(np.linspace(0., 2*np.pi, 1000)* np.pi / 180.)
+np.save("C:/Users/coled/PycharmProjects/mybots/data/backLegAngles.npy", backLegAngles)
+exit()
+
 for i in range(1000):
     p.stepSimulation()
     backLegSensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("BackLeg")
@@ -29,9 +34,9 @@ for i in range(1000):
 
         controlMode=p.POSITION_CONTROL,
 
-        targetPosition=-np.pi/4.0,
+        targetPosition=backLegAngles[i],
 
-        maxForce=500)
+        maxForce=150)
     pyrosim.Set_Motor_For_Joint(
 
         bodyIndex=robotId,
@@ -40,9 +45,9 @@ for i in range(1000):
 
         controlMode=p.POSITION_CONTROL,
 
-        targetPosition=np.pi / 4.0,
+        targetPosition=frontLegAngles[i],
 
-        maxForce=500)
+        maxForce=150)
     time.sleep(1/60)
 
 p.disconnect()
