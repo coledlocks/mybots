@@ -4,6 +4,13 @@ import pybullet_data
 import pyrosim.pyrosim as pyrosim
 import numpy as np
 
+backLegAmplitude = np.pi/6
+backLegFrequency = 50
+backLegPhaseOffset = 0
+frontLegAmplitude = np.pi/6
+frontLegFrequency = 25
+frontLegPhaseOffset = np.pi/3
+
 # setting up physics client
 physicsClient = p.connect(p.GUI)
 p.setAdditionalSearchPath(pybullet_data.getDataPath())
@@ -17,10 +24,17 @@ pyrosim.Prepare_To_Simulate(robotId)
 backLegSensorValues = np.zeros(1000)
 frontLegSensorValues = np.zeros(1000)
 
-backLegAngles = np.sin(np.linspace(0., 2*np.pi, 1000)* np.pi / 180.)
-frontLegAngles = np.sin(np.linspace(0., 2*np.pi, 1000)* np.pi / 180.)
-np.save("C:/Users/coled/PycharmProjects/mybots/data/backLegAngles.npy", backLegAngles)
-exit()
+backLegMotorCommands = backLegAmplitude * np.sin(backLegFrequency * np.linspace(0., 2*np.pi, 1000) + backLegPhaseOffset)
+frontLegMotorCommands = frontLegAmplitude * np.sin(frontLegFrequency * np.linspace(0., 2*np.pi, 1000) + frontLegPhaseOffset)
+
+# scaling the target angles
+backLegAngles = backLegMotorCommands * (np.pi/4.0)
+frontLegAngles = frontLegMotorCommands * (np.pi/4.0)
+
+# saving and exiting
+# np.save("C:/Users/coled/PycharmProjects/mybots/data/backLegMotorCommands.npy", backLegMotorCommands)
+# np.save("C:/Users/coled/PycharmProjects/mybots/data/frontLegMotorCommands.npy", frontLegMotorCommands)
+# exit()
 
 for i in range(1000):
     p.stepSimulation()
@@ -34,9 +48,9 @@ for i in range(1000):
 
         controlMode=p.POSITION_CONTROL,
 
-        targetPosition=backLegAngles[i],
+        targetPosition=backLegMotorCommands[i],
 
-        maxForce=150)
+        maxForce=100)
     pyrosim.Set_Motor_For_Joint(
 
         bodyIndex=robotId,
@@ -45,10 +59,10 @@ for i in range(1000):
 
         controlMode=p.POSITION_CONTROL,
 
-        targetPosition=frontLegAngles[i],
+        targetPosition=frontLegMotorCommands[i],
 
-        maxForce=150)
-    time.sleep(1/60)
+        maxForce=100)
+    time.sleep(1/240)
 
 p.disconnect()
 
