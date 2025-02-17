@@ -4,11 +4,11 @@ import pybullet_data
 import pyrosim.pyrosim as pyrosim
 import numpy as np
 
-backLegAmplitude = np.pi/6
-backLegFrequency = 50
+backLegAmplitude = np.pi/4
+backLegFrequency = 30
 backLegPhaseOffset = 0
-frontLegAmplitude = np.pi/6
-frontLegFrequency = 25
+frontLegAmplitude = -np.pi/1.75
+frontLegFrequency = 0
 frontLegPhaseOffset = np.pi/3
 
 # setting up physics client
