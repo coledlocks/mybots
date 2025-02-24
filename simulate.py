@@ -3,13 +3,7 @@ import time
 import pybullet_data
 import pyrosim.pyrosim as pyrosim
 import numpy as np
-
-backLegAmplitude = np.pi/4
-backLegFrequency = 30
-backLegPhaseOffset = 0
-frontLegAmplitude = -np.pi/1.75
-frontLegFrequency = 0
-frontLegPhaseOffset = np.pi/3
+import constants as c
 
 # setting up physics client
 physicsClient = p.connect(p.GUI)
@@ -21,11 +15,11 @@ robotId = p.loadURDF("body.urdf")
 p.loadSDF("world.sdf")
 pyrosim.Prepare_To_Simulate(robotId)
 
-backLegSensorValues = np.zeros(1000)
-frontLegSensorValues = np.zeros(1000)
+backLegSensorValues = np.zeros(c.MAX_TIME)
+frontLegSensorValues = np.zeros(c.MAX_TIME)
 
-backLegMotorCommands = backLegAmplitude * np.sin(backLegFrequency * np.linspace(0., 2*np.pi, 1000) + backLegPhaseOffset)
-frontLegMotorCommands = frontLegAmplitude * np.sin(frontLegFrequency * np.linspace(0., 2*np.pi, 1000) + frontLegPhaseOffset)
+backLegMotorCommands = c.backLegAmplitude * np.sin(c.backLegFrequency * np.linspace(0., 2*np.pi, 1000) + c.backLegPhaseOffset)
+frontLegMotorCommands = c.frontLegAmplitude * np.sin(c.frontLegFrequency * np.linspace(0., 2*np.pi, 1000) + c.frontLegPhaseOffset)
 
 # scaling the target angles
 backLegAngles = backLegMotorCommands * (np.pi/4.0)
