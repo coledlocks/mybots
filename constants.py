@@ -1,10 +1,14 @@
-# file for storing constants
-
-# importing necessary packages
 import numpy as np
 
 # max time of simulation
 MAX_TIME = 1000
+
+# general amplitude values
+amplitude = np.pi / 2
+frequency = 60
+phaseOffset = 0
+
+t = np.linspace(0, 2 * np.pi, MAX_TIME)
 
 # back and front leg values
 backLegAmplitude = np.pi/4
