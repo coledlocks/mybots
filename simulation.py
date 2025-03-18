@@ -9,8 +9,12 @@ import constants as c
 import time
 
 class SIMULATION:
-  def __init__(self):
-    self.physicsClient = p.connect(p.GUI)
+  def __init__(self, directOrGUI):
+    self.runSetting = directOrGUI
+    if directOrGUI == 'DIRECT':
+      self.physicsClient = p.connect(p.DIRECT)
+    if directOrGUI == 'GUI':
+      self.physicsClient = p.connect(p.GUI)
     p.setAdditionalSearchPath(pybullet_data.getDataPath())
     p.configureDebugVisualizer(p.COV_ENABLE_GUI, 1)  # set to 0 to enable
     p.setGravity(0, 0, -9.8)
@@ -28,6 +32,9 @@ class SIMULATION:
       self.robot.Think(t)
       self.robot.Act(t)
       time.sleep(1 / 30)
+
+  def Get_Fitness(self):
+    self.robot.Get_Fitness()
 
   def __del__(self):
     p.disconnect()
