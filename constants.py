@@ -1,7 +1,7 @@
 import numpy as np
 
 # max time of simulation
-MAX_TIME = 1000
+MAX_TIME = 100
 
 # general amplitude values
 amplitude = np.pi / 2
