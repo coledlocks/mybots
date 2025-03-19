@@ -31,7 +31,8 @@ class SIMULATION:
       self.robot.Sense(t)
       self.robot.Think(t)
       self.robot.Act(t)
-      time.sleep(1 / 60)
+      if self.runSetting == 'GUI':
+        time.sleep(1 / 60)
 
   def Get_Fitness(self):
     self.robot.Get_Fitness()
