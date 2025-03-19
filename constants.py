@@ -19,4 +19,4 @@ frontLegFrequency = 0
 frontLegPhaseOffset = np.pi/3
 
 # number of generations
-numberOfGenerations = 2
+numberOfGenerations = 10
