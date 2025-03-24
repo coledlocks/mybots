@@ -1,11 +1,9 @@
 import os
-from hillclimber import HILL_CLIMBER
+from parallelHillClimber import PARALLEL_HILL_CLIMBER
 
 
-hc = HILL_CLIMBER()
-hc.Evolve()
-hc.Show_Best()
-
-# for i in range(5):
-#     os.system("python generate.py")
-#     os.system("python simulate.py")
+phc = PARALLEL_HILL_CLIMBER()
+phc.Evolve()
+print("completed evolution", os.path.exists("fitness*.txt"))
+phc.Show_Best()
+print("showing best:", os.path.exists("fitness*.txt"))

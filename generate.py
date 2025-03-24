@@ -5,14 +5,12 @@ length, width, height = 1, 1, 1
 x, y, z = 0, 0, 0.5
 
 # function to create a world
-
 def create_world():
     pyrosim.Start_SDF("world.sdf")
     pyrosim.Send_Cube(name="Box", pos=[-3, 3, z], size=[length, width, height])
     pyrosim.End()
 
 # functions to create a robot
-
 def Generate_Body():
     pyrosim.Start_URDF("body.urdf")
     pyrosim.Send_Cube(name="Torso", pos=[1.5, 0, 1.5], size=[1, 1, 1])  # absolute link
