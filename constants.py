@@ -1,7 +1,7 @@
 import numpy as np
 
 # max time of simulation
-MAX_TIME = 100
+MAX_TIME = 250
 
 # general amplitude values
 amplitude = np.pi / 2
@@ -19,7 +19,7 @@ frontLegFrequency = 0
 frontLegPhaseOffset = np.pi/3
 
 # number of generations
-numberOfGenerations = 5
+numberOfGenerations = 10
 
 # pop size
-populationSize = 5
+populationSize = 10

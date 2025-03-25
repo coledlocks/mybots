@@ -18,7 +18,7 @@ class SOLUTION:
         os.system("start /B python simulate.py " + directOrGUI + ' ' + str(self.myID))
 
     def Wait_For_Simulation_To_End(self):
-        fitnessFileName = f"fitness{self.myID}.txt"
+        fitnessFileName = f"fitness{str(self.myID)}.txt"
         while not os.path.exists(fitnessFileName):
             time.sleep(0.01)
         with open(f"fitness{str(self.myID)}.txt", 'r') as f:
@@ -49,7 +49,7 @@ class SOLUTION:
     #     pyrosim.End()
 
     def Create_Brain(self):
-        pyrosim.Start_NeuralNetwork(f"brain{self.myID}.nndf")
+        pyrosim.Start_NeuralNetwork(f"brain{str(self.myID)}.nndf")
         pyrosim.Send_Sensor_Neuron(name=0, linkName="Torso")
         pyrosim.Send_Sensor_Neuron(name=1, linkName="BackLeg")
         pyrosim.Send_Sensor_Neuron(name=2, linkName="FrontLeg")
