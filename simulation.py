@@ -9,8 +9,9 @@ import constants as c
 import time
 
 class SIMULATION:
-  def __init__(self, directOrGUI):
+  def __init__(self, directOrGUI, solutionID):
     self.runSetting = directOrGUI
+    self.solutionID = solutionID
     if directOrGUI == 'DIRECT':
       self.physicsClient = p.connect(p.DIRECT)
     if directOrGUI == 'GUI':
@@ -21,7 +22,7 @@ class SIMULATION:
 
     # initialize world and robot
     self.world = WORLD()
-    self.robot = ROBOT()
+    self.robot = ROBOT(solutionID)
 
     pyrosim.Prepare_To_Simulate(self.robot.robotId)
 
@@ -29,13 +30,13 @@ class SIMULATION:
     for t in range(c.MAX_TIME):
       p.stepSimulation()
       self.robot.Sense(t)
-      self.robot.Think(t)
+      self.robot.Think()
       self.robot.Act(t)
       if self.runSetting == 'GUI':
         time.sleep(1 / 60)
 
   def Get_Fitness(self):
-    self.robot.Get_Fitness()
+    self.robot.Get_Fitness(self.solutionID)
 
   def __del__(self):
     p.disconnect()

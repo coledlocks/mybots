@@ -19,4 +19,7 @@ frontLegFrequency = 0
 frontLegPhaseOffset = np.pi/3
 
 # number of generations
-numberOfGenerations = 10
+numberOfGenerations = 5
+
+# pop size
+populationSize = 5
