@@ -4,9 +4,13 @@ import numpy as np
 MAX_TIME = 250
 
 # general amplitude values
-amplitude = np.pi / 2
+amplitude = np.pi / 4
 frequency = 60
 phaseOffset = 0
+
+# number of sensor and motor neurons
+numSensorNeurons = 9
+numMotorNeurons = 8
 
 t = np.linspace(0, 2 * np.pi, MAX_TIME)
 
@@ -17,6 +21,8 @@ backLegPhaseOffset = 0
 frontLegAmplitude = -np.pi/1.75
 frontLegFrequency = 0
 frontLegPhaseOffset = np.pi/3
+
+motorJointRange = 0.2
 
 # number of generations
 numberOfGenerations = 10

@@ -1,8 +1,10 @@
 # importing packages
+import constants as c
 from sensor import SENSOR
 from motor import MOTOR
 import os
 import pybullet as p
+import pybullet_data
 import pyrosim.pyrosim as pyrosim
 from pyrosim.neuralNetwork import NEURAL_NETWORK
 
@@ -33,11 +35,11 @@ class ROBOT:
       self.motors[jointName] = MOTOR(jointName)
 
   def Act(self, t):
-    for neuronName in self.nn.Get_Neuron_Names():
-      if self.nn.Is_Motor_Neuron(neuronName):
-        jointName = self.nn.Get_Motor_Neurons_Joint(neuronName).encode("utf-8")
-        desiredAngle = self.nn.Get_Value_Of(neuronName)
-        self.motors[jointName].Set_Value(self.robotId, desiredAngle)
+      for neuronName in self.nn.Get_Neuron_Names():
+        if self.nn.Is_Motor_Neuron(neuronName):
+          jointName = self.nn.Get_Motor_Neurons_Joint(neuronName).encode("utf-8")
+          desiredAngle = self.nn.Get_Value_Of(neuronName) * c.motorJointRange
+          self.motors[jointName].Set_Value(self.robotId, desiredAngle)
         # jointName = jointName.decode("utf-8")
         # print(neuronName, jointName, desiredAngle)
 
@@ -48,7 +50,6 @@ class ROBOT:
     self.stateOfLinkZero = p.getLinkState(self.robotId, 0)
     self.positionOfLinkZero = self.stateOfLinkZero[0]
     self.xCoordinateOfLinkZero = self.positionOfLinkZero[0]
-    # print(self.stateOfLinkZero)
 
     with open(f"tmp{solutionID}.txt", 'w') as f:
       f.write(str(self.xCoordinateOfLinkZero))
