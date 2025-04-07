@@ -47,12 +47,12 @@ class ROBOT:
     self.nn.Update()
 
   def Get_Fitness(self, solutionID):
-    self.stateOfLinkZero = p.getLinkState(self.robotId, 0)
-    self.positionOfLinkZero = self.stateOfLinkZero[0]
-    self.xCoordinateOfLinkZero = self.positionOfLinkZero[0]
+    self.basePositionAndOrientation = p.getBasePositionAndOrientation(self.robotId)
+    self.basePosition = self.basePositionAndOrientation[0]
+    self.xPosition = self.basePosition[0]
 
     with open(f"tmp{solutionID}.txt", 'w') as f:
-      f.write(str(self.xCoordinateOfLinkZero))
+      f.write(str(self.xPosition))
 
     os.system(f"rename tmp{solutionID}.txt fitness{solutionID}.txt")
     # os.rename("tmp" + str(solutionID) + ".txt", "fitness" + str(solutionID) + ".txt")

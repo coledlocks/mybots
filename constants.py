@@ -1,7 +1,7 @@
 import numpy as np
 
 # max time of simulation
-MAX_TIME = 250
+MAX_TIME = 1000
 
 # general amplitude values
 amplitude = np.pi / 4
@@ -25,7 +25,7 @@ frontLegPhaseOffset = np.pi/3
 motorJointRange = 0.2
 
 # number of generations
-numberOfGenerations = 10
+numberOfGenerations = 2
 
 # pop size
-populationSize = 10
+populationSize = 2
