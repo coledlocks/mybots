@@ -57,6 +57,7 @@ class PARALLEL_HILL_CLIMBER:
             if self.parents[key].fitness < self.lowest_fitness:
                 self.lowest_fitness = self.parents[key].fitness
                 self.lowest_key = key
+        print(f'BEST: {key}: {self.lowest_fitness}')
         self.parents[self.lowest_key].Start_Simulation("GUI")
 
 

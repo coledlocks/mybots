@@ -8,7 +8,7 @@ import time
 class SOLUTION:
     def __init__(self, availableID):
         self.myID = availableID
-        self.weights = np.random.rand(c.numSensorNeurons, c.numMotorNeurons)  # random 3 X 2 rand array
+        self.weights = np.random.rand(c.numSensorNeurons, c.numMotorNeurons)  # random array
         self.weights = 2 * self.weights - 1
 
     def Start_Simulation(self, directOrGUI):
