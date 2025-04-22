@@ -22,10 +22,10 @@ frontLegAmplitude = -np.pi/1.75
 frontLegFrequency = 0
 frontLegPhaseOffset = np.pi/3
 
-motorJointRange = 0.2
+motorJointRange = 0.5
 
 # number of generations
-numberOfGenerations = 10
+numberOfGenerations = 20
 
 # pop size
 populationSize = 20

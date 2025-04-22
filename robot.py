@@ -7,6 +7,7 @@ import pybullet as p
 import pybullet_data
 import pyrosim.pyrosim as pyrosim
 from pyrosim.neuralNetwork import NEURAL_NETWORK
+import time
 
 class ROBOT:
   def __init__(self, solutionID):
@@ -47,12 +48,24 @@ class ROBOT:
     self.nn.Update()
 
   def Get_Fitness(self, solutionID):
+    self.start_time = time.time()
+
     self.basePositionAndOrientation = p.getBasePositionAndOrientation(self.robotId)
     self.basePosition = self.basePositionAndOrientation[0]
     self.xPosition = self.basePosition[0]
 
+    if self.xPosition == -25:
+      self.runway_end_reached = True
+      self.end_time = time.time()
+      time_taken = self.end_time - self.start_time
+      print(f'Robot reached the end! Time taken: {time_taken} seconds')
+      self.fitness = self.xPosition - 25/(time_taken/60) # -25 is the end position of the runway
+    else:
+      self.fitness = self.xPosition
+
+
     with open(f"tmp{solutionID}.txt", 'w') as f:
-      f.write(str(self.xPosition))
+      f.write(str(self.fitness))
 
     os.system(f"rename tmp{solutionID}.txt fitness{solutionID}.txt")
     # os.rename("tmp" + str(solutionID) + ".txt", "fitness" + str(solutionID) + ".txt")
